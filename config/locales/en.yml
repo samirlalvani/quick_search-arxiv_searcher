@@ -1,12 +1,9 @@
 en:
   arxiv_search:
-    display_name: "arXiv"
-    short_display_name: "article"
-    see_all_message: "Find more articles on arXiv"
-    search_form_placeholder: "Search for articles from arXiv"
-    module_callout: "Search for articles from arXiv"
-    error_service_message: "searching articles from arXiv"
-    no_results_service_message: "a different search for articles from arXiv"
-    loaded_link: "http://arxiv.org/"
-    no_results_link: "http://www.arxiv.org"
-
+    display_name: "WorldCat"
+    short_display_name: "WorldCat"
+    search_form_placeholder: "Search WorldCat"
+    module_callout: "Search WorldCat"
+    error_service_message: "searching WorldCat"
+    no_results_service_message: "a different search from WorldCat"
+    no_results_link: "https://umaryland.on.worldcat.org/search"

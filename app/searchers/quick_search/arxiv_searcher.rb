@@ -18,8 +18,7 @@ module QuickSearch
           result.title = title(value)
           result.link = link(value)
           result.author = author(value)
-          result.date = published(value)
-          result.journal_ref = journal(value)
+          result.date = updated(value)
 
           @results_list << result
         end
@@ -32,20 +31,18 @@ module QuickSearch
     end
 
     def loaded_link
-      QuickSearch::Engine::ARXIV_CONFIG['loaded_link']
+      QuickSearch::Engine::ARXIV_CONFIG['loaded_link'] + http_request_queries['uri_escaped']
     end
 
     private
 
     def base_url
-      QuickSearch::Engine::ARXIV_CONFIG['base_url']
+      QuickSearch::Engine::ARXIV_CONFIG['base_url'] + QuickSearch::Engine::ARXIV_CONFIG['wskey'] + "&"
     end
 
     def parameters
       {
-        'search_query' => 'all:' + http_request_queries['not_escaped'],
-        'start'=> @offset,
-        'max_results' => @per_page
+        'q' => http_request_queries['not_escaped']
       }
     end
 
@@ -54,7 +51,8 @@ module QuickSearch
     end
 
     def link(value)
-      value.at("link[@rel='alternate']").attributes['href'].value if value.at("link[@rel='alternate']")
+      id = value.xpath('//oclcterms:recordIdentifier', 'oclcterms' => 'http://purl.org/oclc/terms/')[0].content
+      QuickSearch::Engine::ARXIV_CONFIG['url_link'] + id
     end
 
     def author(value)
@@ -65,16 +63,11 @@ module QuickSearch
       authors.join(', ')
     end
 
-    def published(value)
-      datetime = value.at('published').content if value.at('published')
+    def updated(value)
+      datetime = value.at('updated').content if value.at('updated')
       d = Time.zone.parse(datetime)
       d.strftime('%Y')
     end
-
-    def journal(value)
-      value.at('arxiv:journal_ref').content if value.at('arxiv:journal_ref')
-    end
-
 
   end
 end

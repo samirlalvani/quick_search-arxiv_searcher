@@ -1,6 +1,8 @@
 defaults: &defaults
-  base_url: "http://export.arxiv.org/api/query?"
-  loaded_link: "http://arxiv.org/"
+  base_url: "http://www.worldcat.org/webservices/catalog/search/worldcat/opensearch?count=3&wskey="
+  loaded_link: "https://umaryland.on.worldcat.org/search?queryString="
+  url_link: "https://umaryland.on.worldcat.org/search?queryString=no%3A+"
+  wskey: ""
 
 development:
   <<: *defaults
@@ -13,4 +15,3 @@ staging:
 
 production:
   <<: *defaults
-
