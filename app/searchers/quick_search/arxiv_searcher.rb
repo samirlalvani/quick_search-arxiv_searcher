@@ -51,7 +51,7 @@ module QuickSearch
     end
 
     def link(value)
-      id = value.xpath('//oclcterms:recordIdentifier', 'oclcterms' => 'http://purl.org/oclc/terms/')[0].content
+      id = value.at('id').content[25..-1] if value.at('id')
       QuickSearch::Engine::ARXIV_CONFIG['url_link'] + id
     end
 
